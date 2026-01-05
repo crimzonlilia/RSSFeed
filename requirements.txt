@@ -1,0 +1,29 @@
+# Kafka
+kafka-python==2.0.2
+
+# Spark
+pyspark==3.5.0
+
+# RSS Parsing
+feedparser==6.0.10
+
+# HTTP Requests
+requests==2.31.0
+
+# Data Processing
+pandas==2.0.3
+numpy==1.24.3
+
+# Sentiment Analysis
+vaderSentiment==3.3.2
+nltk==3.8.1
+
+# Visualization
+streamlit==1.28.0
+plotly==5.17.0
+matplotlib==3.7.2
+seaborn==0.12.2
+wordcloud==1.9.2
+
+# Utilities
+python-dotenv==1.0.0
