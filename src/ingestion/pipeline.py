@@ -1,4 +1,3 @@
-# src/ingestion/pipeline.py
 import logging
 from rss_crawler import RSSCrawler
 from kafka_producer import ArticleProducer

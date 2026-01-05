@@ -1,4 +1,3 @@
-# src/analytics/sentiment_analyzer.py
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import logging
 
