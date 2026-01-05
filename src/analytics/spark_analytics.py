@@ -28,16 +28,16 @@ class SparkAnalytics:
             .getOrCreate()
         
         self.spark.sparkContext.setLogLevel("ERROR")
-        logger.info("✅ Spark Analytics initialized")
+        logger.info(" Spark Analytics initialized")
     
     def load_data(self):
         """Load processed data from Parquet"""
         try:
             df = self.spark.read.parquet(self.data_path)
-            logger.info(f"📊 Loaded {df.count()} articles")
+            logger.info(f" Loaded {df.count()} articles")
             return df
         except Exception as e:
-            logger.error(f"❌ Error loading data: {e}")
+            logger.error(f" Error loading data: {e}")
             return None
     
     def sentiment_distribution(self, df):
@@ -46,7 +46,7 @@ class SparkAnalytics:
             .agg(count("*").alias("count")) \
             .orderBy(desc("count"))
         
-        logger.info("\n📊 Sentiment Distribution:")
+        logger.info("\n Sentiment Distribution:")
         result.show()
         return result
     
@@ -58,8 +58,8 @@ class SparkAnalytics:
                 avg("sentiment_compound").alias("avg_score")
             ) \
             .orderBy("category", desc("count"))
-        
-        logger.info("\n📊 Category Sentiment Analysis:")
+    
+        logger.info("\n Category Sentiment Analysis:")
         result.show()
         return result
     
@@ -77,7 +77,7 @@ class SparkAnalytics:
             .orderBy(desc("count")) \
             .limit(limit)
         
-        logger.info(f"\n📊 Top {limit} Keywords:")
+        logger.info(f"\n Top {limit} Keywords:")
         result.show(limit)
         return result
     
@@ -91,7 +91,7 @@ class SparkAnalytics:
             ) \
             .orderBy(desc("total_articles"))
         
-        logger.info("\n📊 Source Analysis:")
+        logger.info("\n Source Analysis:")
         result.show()
         return result
     
@@ -102,7 +102,7 @@ class SparkAnalytics:
             .agg(count("*").alias("count")) \
             .orderBy("hour")
         
-        logger.info("\n📊 Hourly Activity:")
+        logger.info("\n Hourly Activity:")
         result.show(24)
         return result
     
@@ -118,7 +118,7 @@ class SparkAnalytics:
             ) \
             .orderBy("category")
         
-        logger.info("\n📊 Sentiment Ratio by Category:")
+        logger.info("\n Sentiment Ratio by Category:")
         result.show()
         return result
     
@@ -127,7 +127,7 @@ class SparkAnalytics:
         df = self.load_data()
         
         if df is None or df.count() == 0:
-            logger.warning("⚠️ No data found!")
+            logger.warning(" No data found!")
             return
         
         # Run all analytics
@@ -145,14 +145,14 @@ class SparkAnalytics:
             "sentiment_compound", "processed_at"
         ).orderBy(desc("processed_at")).limit(limit)
         
-        logger.info(f"\n📰 Latest {limit} Articles:")
+        logger.info(f"\n Latest {limit} Articles:")
         result.show(limit, truncate=50)
         return result
     
     def stop(self):
         """Stop Spark session"""
         self.spark.stop()
-        logger.info("🔌 Spark stopped")
+        logger.info(" Spark stopped")
 
 
 # Test analytics

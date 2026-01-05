@@ -65,7 +65,7 @@ class RSSCrawler:
                 }
                 
                 articles.append(article)
-                logger.info(f"✅ Crawled: {article['title'][:50]}...")
+                logger.info(f"Crawled: {article['title'][:50]}...")
             
         except Exception as e:
             logger.error(f"Error crawling {feed_url}: {e}")
@@ -86,23 +86,23 @@ class RSSCrawler:
             
             time.sleep(1)  # Be nice to servers
         
-        logger.info(f"📊 Total articles crawled: {len(all_articles)}")
+        logger.info(f"Total articles crawled: {len(all_articles)}")
         return all_articles
     
     def crawl_continuously(self, interval: int = 300):
         """Crawl feeds continuously every {interval} seconds"""
-        logger.info(f"🔄 Starting continuous crawling (interval: {interval}s)")
+        logger.info(f"Starting continuous crawling (interval: {interval}s)")
         
         while True:
             try:
                 articles = self.crawl_all_feeds()
                 yield articles
                 
-                logger.info(f"💤 Sleeping for {interval} seconds...")
+                logger.info(f"Sleeping for {interval} seconds...")
                 time.sleep(interval)
                 
             except KeyboardInterrupt:
-                logger.info("⛔ Stopping crawler...")
+                logger.info("Stopping crawler...")
                 break
             except Exception as e:
                 logger.error(f"Error in continuous crawl: {e}")
@@ -116,6 +116,6 @@ if __name__ == "__main__":
     crawler = RSSCrawler(ALL_FEEDS)
     articles = crawler.crawl_all_feeds()
     
-    print(f"\n📰 Sample article:")
+    print(f"\nSample article:")
     if articles:
         print(articles[0])

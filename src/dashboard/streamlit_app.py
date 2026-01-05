@@ -16,7 +16,7 @@ from config.spark_config import SPARK_CONFIG
 # Page config
 st.set_page_config(
     page_title="RSS Analytics Dashboard",
-    page_icon="📰",
+    page_icon="",
     layout="wide"
 )
 
@@ -42,17 +42,17 @@ def load_data():
         return pd.DataFrame()
 
 # Title
-st.title("📰 RSS News Analytics Dashboard")
+st.title("RSS News Analytics Dashboard")
 st.markdown("Real-time analytics from RSS feeds")
 
 # Sidebar filters
-st.sidebar.header("🔍 Filters")
+st.sidebar.header("Filters")
 
 # Load data
 df = load_data()
 
 if df.empty:
-    st.warning("⚠️ No data available. Run the streaming pipeline first!")
+    st.warning("No data available. Run the streaming pipeline first!")
     st.stop()
 
 # Convert timestamp
@@ -80,7 +80,7 @@ if selected_sentiment != 'All':
     filtered_df = filtered_df[filtered_df['sentiment'] == selected_sentiment]
 
 # Metrics
-st.header("📊 Key Metrics")
+st.header("Key Metrics")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -99,12 +99,12 @@ with col4:
     st.metric("Avg Text Length", f"{avg_length:.0f}")
 
 # Refresh button
-if st.sidebar.button("🔄 Refresh Data"):
+if st.sidebar.button("Refresh Data"):
     st.cache_data.clear()
     st.rerun()
 
 # Visualizations
-st.header("📈 Analytics")
+st.header("Analytics")
 
 # Row 1: Sentiment Distribution
 col1, col2 = st.columns(2)
@@ -216,7 +216,7 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True)
 
 # Latest Articles Table
-st.header("📰 Latest Articles")
+st.header("Latest Articles")
 latest = filtered_df.nlargest(10, 'processed_at')[
     ['title_clean', 'source', 'category', 'sentiment', 'sentiment_compound', 'processed_at']
 ]
@@ -225,4 +225,4 @@ st.dataframe(latest, use_container_width=True)
 # Footer
 st.sidebar.markdown("---")
 st.sidebar.info(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-st.sidebar.markdown("Built with ❤️ using Streamlit")
+st.sidebar.markdown("Built using Streamlit")

@@ -48,8 +48,8 @@ class SparkStreamProcessor:
         
         self.spark.sparkContext.setLogLevel("ERROR")
         
-        logger.info("✅ Spark Session created")
-        logger.info(f"🐍 Using Python: {sys.executable}")
+        logger.info("Spark Session created")
+        logger.info(f"Using Python: {sys.executable}")
         
         self._define_schema()
         self._register_udfs()
@@ -117,7 +117,7 @@ class SparkStreamProcessor:
     
     def read_from_kafka(self):
         """Read streaming data from Kafka"""
-        logger.info(f"📖 Reading from Kafka topic: {SPARK_CONFIG['kafka_topic']}")
+        logger.info(f"Reading from Kafka topic: {SPARK_CONFIG['kafka_topic']}")
         
         df = self.spark.readStream \
             .format("kafka") \
@@ -137,7 +137,7 @@ class SparkStreamProcessor:
     
     def process_stream(self, df):
         """Process streaming dataframe"""
-        logger.info("⚙️ Processing stream...")
+        logger.info("️ Processing stream...")
         
         # Register UDFs
         self._register_udfs()
@@ -179,7 +179,7 @@ class SparkStreamProcessor:
         if output_path is None:
             output_path = SPARK_CONFIG['output_path']
         
-        logger.info(f"💾 Writing to Parquet: {output_path}")
+        logger.info(f"Writing to Parquet: {output_path}")
         
         query = df.writeStream \
             .format("parquet") \
@@ -193,7 +193,7 @@ class SparkStreamProcessor:
     
     def write_to_console(self, df):
         """Write streaming data to console (for debugging)"""
-        logger.info("🖥️ Writing to console...")
+        logger.info("️ Writing to console...")
         
         query = df.writeStream \
             .format("console") \
@@ -206,7 +206,7 @@ class SparkStreamProcessor:
     
     def run_pipeline(self, output_mode='parquet'):
         """Run complete streaming pipeline"""
-        logger.info("🚀 Starting Spark Streaming pipeline...")
+        logger.info("Starting Spark Streaming pipeline...")
         
         # Read from Kafka
         raw_df = self.read_from_kafka()
@@ -226,7 +226,7 @@ class SparkStreamProcessor:
         else:
             raise ValueError(f"Unknown output mode: {output_mode}")
         
-        logger.info("✅ Pipeline started successfully!")
+        logger.info("Pipeline started successfully!")
         logger.info("Press Ctrl+C to stop...")
         
         return query
@@ -234,7 +234,7 @@ class SparkStreamProcessor:
     def stop(self):
         """Stop Spark session"""
         self.spark.stop()
-        logger.info("🔌 Spark Session stopped")
+        logger.info("Spark Session stopped")
 
 
 # Run streaming job
@@ -253,6 +253,6 @@ if __name__ == "__main__":
             queries.awaitTermination()
             
     except KeyboardInterrupt:
-        logger.info("⛔ Stopping pipeline...")
+        logger.info("Stopping pipeline...")
     finally:
         processor.stop()

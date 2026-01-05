@@ -11,7 +11,7 @@ class SentimentAnalyzer:
     
     def __init__(self):
         self.analyzer = SentimentIntensityAnalyzer()
-        logger.info("✅ Sentiment Analyzer initialized")
+        logger.info(" Sentiment Analyzer initialized")
     
     def analyze(self, text: str) -> dict:
         """

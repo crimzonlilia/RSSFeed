@@ -29,7 +29,7 @@ class ArticleProducer:
             retries=3
         )
         self.topic = KAFKA_CONFIG['topic']
-        logger.info(f"✅ Kafka Producer connected to {KAFKA_CONFIG['bootstrap_servers']}")
+        logger.info(f"Kafka Producer connected to {KAFKA_CONFIG['bootstrap_servers']}")
     
     def send_article(self, article: Dict):
         """Send single article to Kafka"""
@@ -37,13 +37,13 @@ class ArticleProducer:
             future = self.producer.send(self.topic, article)
             record_metadata = future.get(timeout=10)
             
-            logger.info(f"📤 Sent to Kafka - Topic: {record_metadata.topic}, "
+            logger.info(f"Sent to Kafka - Topic: {record_metadata.topic}, "
                        f"Partition: {record_metadata.partition}, "
                        f"Offset: {record_metadata.offset}")
             return True
             
         except KafkaError as e:
-            logger.error(f"❌ Failed to send article: {e}")
+            logger.error(f"Failed to send article: {e}")
             return False
     
     def send_batch(self, articles: List[Dict]):
@@ -55,14 +55,14 @@ class ArticleProducer:
                 success_count += 1
         
         self.producer.flush()  # Ensure all messages are sent
-        logger.info(f"📊 Batch sent: {success_count}/{len(articles)} articles")
+        logger.info(f"Batch sent: {success_count}/{len(articles)} articles")
         
         return success_count
     
     def close(self):
         """Close Kafka producer"""
         self.producer.close()
-        logger.info("🔌 Kafka Producer closed")
+        logger.info("Kafka Producer closed")
 
 
 # Test producer

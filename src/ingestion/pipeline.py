@@ -17,21 +17,21 @@ def run_pipeline(interval: int = 300):
     crawler = RSSCrawler(ALL_FEEDS)
     producer = ArticleProducer()
     
-    logger.info("🚀 Starting RSS → Kafka pipeline...")
+    logger.info("Starting RSS → Kafka pipeline...")
     
     try:
         for articles in crawler.crawl_continuously(interval):
             if articles:
                 producer.send_batch(articles)
             else:
-                logger.warning("⚠️ No new articles found")
+                logger.warning("No new articles found")
     
     except KeyboardInterrupt:
-        logger.info("⛔ Pipeline stopped by user")
+        logger.info("Pipeline stopped by user")
     
     finally:
         producer.close()
-        logger.info("✅ Pipeline shutdown complete")
+        logger.info("Pipeline shutdown complete")
 
 
 if __name__ == "__main__":
